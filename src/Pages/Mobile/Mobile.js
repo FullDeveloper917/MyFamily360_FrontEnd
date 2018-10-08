@@ -1,21 +1,25 @@
 import React, {Component} from 'react';
 import mobile_tracker_img from '../../assets/img/mobile_tracker.jpg';
-import PropTypes from 'prop-types';
+import {Link} from "react-router-dom";
 
 const mobile_free_items = [
     {
+        id: 0,
         key: "Schedule phone use",
         value: ["Remotely schedule when child phone is open", "Remotely view how long child phone will work before it locks."]
     },
     {
+        id: 1,
         key: "View Apps used",
         value: ["View report of Apps played by child with Time/Date."]
     },
     {
+        id: 2,
         key: "View websites visited",
         value: ["View report of all websites visited by child with Time/Date."]
     },
     {
+        id: 3,
         key: "Block child phone",
         value: ["Block child phone immediately."]
     },
@@ -23,38 +27,47 @@ const mobile_free_items = [
 
 const mobile_items = [
     {
+        id: 0,
         key: "Block websites visited",
         value: ["Blocks access to selected websites from child phone."]
     },
     {
+        id: 1,
         key: "Block Apps used",
         value: ["Blocks access to selected All from child phone."]
     },
     {
+        id: 2,
         key: "View GPS location",
         value: ["Parents can view live their child's GPS location."]
     },
     {
+        id: 3,
         key: "Get location tracking history & report",
         value: ["Parents can view reports on their child's location history. Tracking reports are provided in simple text as well as a graphical map display."]
     },
     {
+        id: 4,
         key: "Set multiple Geo-fence maps",
         value: ["Parents can remotely set multiple Geo-fence maps on their child’s phone and get notified via Text or Email when the child enters or leaves any of the Geo-maps."]
     },
     {
+        id: 5,
         key: "Text and email notification",
         value: ["Text and email notification"]
     },
     {
+        id: 6,
         key: "Remotely activate & view child camera",
         value: ["Parents can remotely activate their child’s phone camera and view from their phone to ensure safety"]
     },
     {
+        id: 7,
         key: "Remotely activate & hear child microphone",
         value: ["Parents can remotely activate their child’s phone microphone and listen from their phone to ensure safety."]
     },
     {
+        id: 8,
         key: "PING your child phone to ensure safety",
         value: ["Parents send a PING message to child phone", "Child phone will display PING message", "Child phone will lock up until the child selects"]
     },
@@ -62,20 +75,24 @@ const mobile_items = [
 
 class Mobile extends Component {
 
+    componentDidMount() {
+        this.props.changePage('mobile');
+    }
+
     render() {
 
         const mobile_free_items_list = mobile_free_items.map(
             (item) => (
-                <div className="item free">
+                <div key={item.id} className="item free">
                     <div className="detail-title" data-toggle="collapse"
-                         data-target="#collapse-mobile-free-<?php echo $key; ?>" aria-expanded="true"
-                         aria-controls="collapse<?php echo $key;?>">
+                         data-target={"#collapse-mobile-free-" + item.id} aria-expanded="true"
+                         aria-controls={"collapse" + item.id}>
                         <span className="check-mark-blue"/>
                         {item.key}
                     </div>
-                    <div id="collapse-mobile-free-<?php echo $key; ?>" className="collapse detail-content"
-                         aria-labelledby="heading<?php echo $key; ?>" data-parent="#accordion">
-                        {item.value.forEach((v) => (<div>v</div>))}
+                    <div id={"collapse-mobile-free-" + item.id} className="collapse detail-content"
+                         aria-labelledby={"heading" + item.id} data-parent="#accordion">
+                        {item.value.map((v) => <div> · {v}</div>)}
                     </div>
                 </div>
             )
@@ -83,16 +100,16 @@ class Mobile extends Component {
 
         const mobile_items_list = mobile_items.map(
             (item) => (
-                <div className="item">
+                <div key={item.id} className="item">
                     <div className="detail-title" data-toggle="collapse"
-                         data-target="#collapse-mobile-<?php echo $key; ?>" aria-expanded="true"
-                         aria-controls="collapse<?php echo $key;?>">
+                         data-target={"#collapse-mobile-" + item.id} aria-expanded="true"
+                         aria-controls={"collapse" + item.id}>
                         <span className="check-mark"/>
                         {item.key}
                     </div>
-                    <div id="collapse-mobile-<?php echo $key; ?>" className="collapse detail-content"
-                         aria-labelledby="heading<?php echo $key; ?>" data-parent="#accordion">
-                        {item.value.forEach((v) => (<div>v</div>))}
+                    <div id={"collapse-mobile-" + item.id} className="collapse detail-content"
+                         aria-labelledby={"heading" + item.id} data-parent="#accordion">
+                        {item.value.map((v) => <div> · {v}</div>)}
                     </div>
                 </div>
             )
@@ -141,9 +158,7 @@ class Mobile extends Component {
                                     </div>
                                     <div className="hidden-md-up">Per month</div>
                                     <div className="button-action">
-                                        <a href="/" className="btn btn-default orange">
-                                            Pre order
-                                        </a>
+                                        <Link className="btn btn-default orange" to="/pre_order">Pre order</Link>
                                     </div>
                                 </div>
 
@@ -157,9 +172,7 @@ class Mobile extends Component {
                                     </div>
                                     <div className="hidden-md-up">Per month</div>
                                     <div className="button-action">
-                                        <a href="/" className="btn btn-default orange">
-                                            Pre order
-                                        </a>
+                                        <Link className="btn btn-default orange" to="/pre_order">Pre order</Link>
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +183,5 @@ class Mobile extends Component {
         );
     }
 }
-
-Mobile.propTypes = {};
 
 export default Mobile;

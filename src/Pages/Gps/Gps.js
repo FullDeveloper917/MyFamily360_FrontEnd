@@ -1,30 +1,36 @@
 import React, {Component} from 'react';
 import gps_tracker_img from '../../assets/img/gps_tracker.jpg';
 import tracker_img from '../../assets/img/tracker.png';
-import PropTypes from 'prop-types';
+import {Link} from "react-router-dom";
 
 const gps_items = [
     {
+        id: 0,
         key: "3G GPS tracking device with SIM (No cell phone required)",
         value: ["Parents can view their child's GPS location within 5 meter accuracy using a high-quality GPS tracking device utilizing a SIM card for Cellular location transmission."]
     },
     {
+        id: 1,
         key: "View premium (enhanced) GPS location",
         value: ["Parents can view their child's GPS location within 5 meter accuracy."]
     },
     {
+        id: 2,
         key: "Get location tracking history",
         value: ["Parents can view reports on their child's location history. Tracking reports are provided in simple text as well as a graphical map display."]
     },
     {
+        id: 3,
         key: "Set multiple Geo-fence maps with text and email notification",
         value: ["Parents can remotely set multiple Geo-fence maps on their child’s phone and get notified via Text or Email when the child enters or leaves any of the Geo-maps."]
     },
     {
+        id: 4,
         key: "SIM card and cellular data plans included",
         value: ["Basic package includes an activated SIM card with monthly data for location tracking transmission."]
     },
     {
+        id: 5,
         key: "Compact and waterproof",
         value: ["GPS tracking device is compact and waterproof and can be attached to your child’s clothing or their backpack."]
     }
@@ -32,20 +38,24 @@ const gps_items = [
 
 class Gps extends Component {
 
+    componentDidMount() {
+        this.props.changePage('gps');
+    }
+
     render() {
 
         const gps_items_list = gps_items.map(
             (item) => (
-                <div className="item">
+                <div key={item.id} className="item">
                     <div className="detail-title" data-toggle="collapse"
-                         data-target="#collapse-gps-<?php echo $key; ?>" aria-expanded="true"
-                         aria-controls="collapse<?php echo $key;?>">
+                         data-target={"#collapse-gps-" + item.id} aria-expanded="true"
+                         aria-controls={"collapse" + item.id}>
                         <span className="check-mark"/>
                         {item.key}
                     </div>
-                    <div id="collapse-gps-<?php echo $key; ?>" className="collapse detail-content"
-                         aria-labelledby="heading<?php echo $key; ?>" data-parent="#accordion_gps">
-                        {item.value.forEach((v) => (<div>v</div>))}
+                    <div id={"collapse-gps-" + item.id} className="collapse detail-content"
+                         aria-labelledby={"heading" + item.id} data-parent="#accordion_gps">
+                        {item.value.map((v) => <div> · {v}</div>)}
                     </div>
                 </div>
             )
@@ -87,7 +97,7 @@ class Gps extends Component {
                                         </div>
                                         <div>(SIM included)</div>
                                         <div className="button-action">
-                                            <a href="/" className="btn btn-default blue">Pre order</a>
+                                            <Link className="btn btn-default blue" to="/pre_order">Pre order</Link>
                                         </div>
                                     </div>
                                 </div>
@@ -112,7 +122,7 @@ class Gps extends Component {
                                     </div>
                                     <div className="hidden-md-up">Per month</div>
                                     <div className="button-action">
-                                        <a href="/" className="btn btn-default orange">Pre order</a>
+                                        <Link className="btn btn-default orange" to="/pre_order">Pre order</Link>
                                     </div>
                                 </div>
 
@@ -127,7 +137,7 @@ class Gps extends Component {
                                     </div>
                                     <div className="hidden-md-up">Per month</div>
                                     <div className="button-action">
-                                        <a href="/" className="btn btn-default orange">Pre order</a>
+                                        <Link className="btn btn-default orange" to="/pre_order">Pre order</Link>
                                     </div>
                                 </div>
 
@@ -139,7 +149,5 @@ class Gps extends Component {
         );
     }
 }
-
-Gps.propTypes = {};
 
 export default Gps;
